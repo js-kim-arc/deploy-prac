@@ -1,0 +1,59 @@
+spring:
+  profiles:
+    group:
+      local: local,common,secret
+      blue: blue,common,secret
+      green: green,common,secret
+
+    active: local
+
+server:
+  env: blue
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2  # 예: 서울 리전
+    stack:
+      auto: false
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 8080
+  address: localhost
+serverName: local_server
+
+---
+spring:
+  config:
+    activate:
+      on-profile: blue
+server:
+  port: 8080
+  address: 52.79.54.27
+serverName: blue_server
+
+---
+spring:
+  config:
+    activate:
+      on-profile: green
+server:
+  port: 8081
+  address: 52.79.54.27
+serverName: green_server
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+cloud:
+  aws:
+    stack:
+      auto: false
