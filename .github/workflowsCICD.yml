@@ -21,6 +21,12 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
+      # ✅ application.yml 안전하게 생성
+      - name: make application.yml
+        run: |
+          mkdir -p ./src/main/resources
+          echo "${{ secrets.YML }}" > ./src/main/resources/application.yml
+
       - name: Build with Gradle
         run: |
           chmod +x ./gradlew
